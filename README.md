@@ -64,3 +64,53 @@ export const withoutDecimalRegex = (value: string) => {
 
 Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.
 Comment
+
+===
+const { mask } = require('./path-to-emailMask-file');
+
+describe('Email Validation', () => {
+
+  // Test valid emails
+  it('should validate valid email addresses', () => {
+    const validEmails = [
+      'email@example.com',
+      'firstname.lastname@example.com',
+      'email@subdomain.example.com',
+      'firstname+lastname@example.com',
+      'email@123.123.123.123',
+      '1234567890@example.com',
+      'email@example-one.com',
+      '_______@example.com',
+      'email@example.name',
+      'email@example.museum',
+      'email@example.co.jp',
+      'firstname-lastname@example.com'
+    ];
+
+    validEmails.forEach(email => {
+      expect(mask.test(email)).toBeTruthy();
+    });
+  });
+
+  // Test invalid emails
+  it('should not validate invalid email addresses', () => {
+    const invalidEmails = [
+      'plainaddress',
+      '@no-local-part.com',
+      'Outlook Contact <outlook-contact@outlook.com>',
+      'no-at-sign.net',
+      'no-tld@test',
+      'double..dot@test.com',
+      'double.@test.com',
+      '.leading-dot@test.com',
+      'spaces in local@test.com',
+      'spaces in domain@test .com',
+      'spaces in both@test . com'
+    ];
+
+    invalidEmails.forEach(email => {
+      expect(mask.test(email)).toBeFalsy();
+    });
+  });
+
+});
