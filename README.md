@@ -180,3 +180,36 @@ o    Support: Alphanumeric (a-z, A-Z, 0-9)
     expect(emailMask.mask.test(email)).toBe(expected)
   );
 });
+
+====
+
+ describe("Email Validation", () => {
+  // Test valid emails
+
+  test.each([
+    ["email@example.com", true],
+    ["firstname.lastname@example.com", true],
+    ["email@subdomain.example.com", true],
+    ["firstname+lastname@example.com", true],
+    ["1234567890@example.com", true],
+    ["email@example-one.com", true],
+    ["_______@example.com", true],
+    ["email@example.museum", true],
+    ["firstname-lastname@example.com", true]
+  ])("should be correct email: %s", (email, expected) => expect(emailMask.mask.test(email)).toBe(expected));
+
+  test.each([
+    ["plainaddress", false],
+    ["@no-local-part.com", false],
+    ["Outlook Contact <outlook-contact@outlook.com>", false],
+    ["no-at-sign.net", false],
+    ["double..dot@test.com", false],
+    ["double.@test.com", false],
+    [".leading-dot@test.com", false],
+    ["spaces in local@test.com", false],
+    ["spaces in domain@test .com", false],
+    ["spaces in both@test . com", false]
+  ])("should not validate invalid email addresses: %s", (email, expected) =>
+    expect(emailMask.mask.test(email)).toBe(expected)
+  );
+});
