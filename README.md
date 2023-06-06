@@ -48,6 +48,10 @@ export const emailMask = {
   mask: /^(?!.*\.\.|\.|\s)[a-zA-Z0-9.!$%#&'^*+/=?_{|}~\s-]+@?(?!\.|-)[a-zA-Z0-9.-]*(?:\.?[a-zA-Z0-9]*)*$/
 };
 
+export const emailMask = {
+  mask: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$/
+};
+
 Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.
 Comment
 
