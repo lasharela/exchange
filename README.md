@@ -116,5 +116,10 @@ describe('Email Validation', () => {
 });
 
 export const emailMask = {
-  mask: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/
+    mask: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/
+
 };
+
+    ✕ should not validate invalid email addresses: double..dot@test.com (2 ms)
+    ✕ should not validate invalid email addresses: double.@test.com (1 ms)
+    ✕ should not validate invalid email addresses: .leading-dot@test.com (1 ms)
