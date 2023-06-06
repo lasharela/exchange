@@ -114,3 +114,7 @@ describe('Email Validation', () => {
   });
 
 });
+
+export const emailMask = {
+  mask: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/
+};
