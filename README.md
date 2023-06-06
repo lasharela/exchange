@@ -129,3 +129,54 @@ export const emailMask = {
   mask: /^(?!.*\.\.)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
 };
 
+
+
+AC2: E-mail Address field should be a required text box field with maximum of 255 characters, which follows these validation rules:
+
+o    Support: Alphanumeric (a-z, A-Z, 0-9) 
+ o    Special characters allowed prior to @ sign (userID):   | ! ~ / # $ % & ' * + = ? ^ _ { } - .
+ o    Special characters allowed after @ sign (domain):   - . (not first or last character)
+            If user types - or . after @ sign with no character following it, error should be displayed "Please enter a valid email address following the format name@example.com"
+ o    Special characters NOT allowed:  ` \ ( ) < > "  [ ]
+ o    Cannot start with a period
+ o    Allowable character, letter or number must follow a period
+ o    Cannot have 2 consecutive periods
+ o    Cannot start or end with a space
+ o    Space is allowed in body prior to @ sign
+ o    Maximum 255 characters
+ o    Require at least one @ symbol and one period
+ o    Required format: userID@domain.com 
+ NOTE: Special characters which are NOT allowed should not be allowed to be typed into the field
+ 
+ 
+ 
+ describe("Email Validation", () => {
+  // Test valid emails
+
+  test.each([
+    ["email@example.com", true],
+    ["firstname.lastname@example.com", true],
+    ["email@subdomain.example.com", true],
+    ["firstname+lastname@example.com", true],
+    ["1234567890@example.com", true],
+    ["email@example-one.com", true],
+    ["_______@example.com", true],
+    ["email@example.museum", true],
+    ["firstname-lastname@example.com", true]
+  ])("should be correct email: %s", (email, expected) => expect(emailMask.mask.test(email)).toBe(expected));
+
+  test.each([
+    ["plainaddress", false],
+    ["@no-local-part.com", false],
+    ["Outlook Contact <outlook-contact@outlook.com>", false],
+    ["no-at-sign.net", false],
+    ["double..dot@test.com", false],
+    ["double.@test.com", false],
+    [".leading-dot@test.com", false],
+    ["spaces in local@test.com", false],
+    ["spaces in domain@test .com", false],
+    ["spaces in both@test . com", false]
+  ])("should not validate invalid email addresses: %s", (email, expected) =>
+    expect(emailMask.mask.test(email)).toBe(expected)
+  );
+});
