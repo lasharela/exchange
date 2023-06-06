@@ -123,3 +123,9 @@ export const emailMask = {
     ✕ should not validate invalid email addresses: double..dot@test.com (2 ms)
     ✕ should not validate invalid email addresses: double.@test.com (1 ms)
     ✕ should not validate invalid email addresses: .leading-dot@test.com (1 ms)
+    
+    
+    export const emailMask = {
+  mask: /^(?!.*\.\.)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+};
+
