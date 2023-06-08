@@ -1,3 +1,4 @@
+
 # exchange
 # exchange
 export const withoutDecimalRegex = (value: string) => {
@@ -213,3 +214,6 @@ o    Support: Alphanumeric (a-z, A-Z, 0-9)
     expect(emailMask.mask.test(email)).toBe(expected)
   );
 });
+
+===
+/^(?!.*\.\.|\.|\s)[a-zA-Z0-9.!$%#&^'*+/=?_{|}~\s-]*@[^.|^-](?=.*\.)[-.|a-zA-Z0-9]*[^.|^-\s]$/
