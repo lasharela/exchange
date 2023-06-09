@@ -217,3 +217,31 @@ o    Support: Alphanumeric (a-z, A-Z, 0-9)
 
 ===
 /^(?!.*\.\.|\.|\s)[a-zA-Z0-9.!$%#&^'*+/=?_{|}~\s-]*@[^.|^-](?=.*\.)[-.|a-zA-Z0-9]*[^.|^-\s]$/
+
+===
+import pyautogui
+import time
+
+# Time intervals in seconds
+open_interval = 60 * 60  # Open Teams every hour
+active_interval = 60 * 10  # Keep Teams active every 10 minutes
+
+# Microsoft Teams icon position (you need to get these coordinates on your screen)
+teams_icon_position = (100, 100)
+
+def open_teams():
+    pyautogui.click(*teams_icon_position)
+
+def keep_teams_active():
+    # A simple mouse movement to the icon and back to the current position
+    current_position = pyautogui.position()
+    pyautogui.moveTo(*teams_icon_position)
+    time.sleep(1)
+    pyautogui.moveTo(*current_position)
+
+while True:
+    open_teams()
+    time.sleep(open_interval)
+    keep_teams_active()
+    time.sleep(active_interval)
+
